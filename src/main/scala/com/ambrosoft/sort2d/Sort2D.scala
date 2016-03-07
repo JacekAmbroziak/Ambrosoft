@@ -37,7 +37,7 @@ object Sort2D extends App {
   val ordered = enumerate(r)
 
 
-//  (diags zip ordered).foreach { case ((x, y), v) => r(x)(y) = v }
+  //  (diags zip ordered).foreach { case ((x, y), v) => r(x)(y) = v }
   (diags zip sortAll(r)).foreach { case ((x, y), v) => r(x)(y) = v }
 
   show(r)

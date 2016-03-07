@@ -1,7 +1,8 @@
 package com.ambrosoft.stablematch
 
-import scala.util.Random
 import org.scalatest.FlatSpec
+
+import scala.util.Random
 
 /**
   * User: jacek
