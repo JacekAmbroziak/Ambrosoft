@@ -4,7 +4,6 @@ import java.nio.ByteBuffer
 import java.security.MessageDigest
 
 import scala.collection.mutable
-import scala.collection.mutable.BitSet
 import scala.io.Source
 
 /**
@@ -29,7 +28,7 @@ class BloomFilter(setSize: Int, multiHashFuns: Seq[String => Seq[Int]]) {
 
   // apply hash functions to input word
   private def normalizedHashes(word: String) =
-    multiHashFuns.flatMap(_ (word)).map(_.abs % setSize)
+    multiHashFuns.flatMap(_ (word)).map(h => (h & 0x7fffffff) % setSize)
 
   /**
     * add the argument String to the set represented by this filter
