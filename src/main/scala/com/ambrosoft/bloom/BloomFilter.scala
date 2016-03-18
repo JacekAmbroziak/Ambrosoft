@@ -23,11 +23,11 @@ import scala.io.Source
   * @param  multiHashFuns sequence of String hashing functions returning Seqs of integer hash values
   */
 
-class BloomFilter(setSize: Int, multiHashFuns: Seq[String => Seq[Int]]) {
+class BloomFilter[-T](setSize: Int, multiHashFuns: Seq[T => Seq[Int]]) {
   private val bitSet = new mutable.BitSet(setSize)
 
   // apply hash functions to input word
-  private def normalizedHashes(word: String) =
+  private def normalizedHashes(word: T) =
     multiHashFuns.flatMap(_ (word)).map(h => (h & 0x7fffffff) % setSize)
 
   /**
@@ -35,7 +35,7 @@ class BloomFilter(setSize: Int, multiHashFuns: Seq[String => Seq[Int]]) {
     *
     * @param word the String to add.
     */
-  def add(word: String) {
+  def add(word: T) {
     normalizedHashes(word).foreach(bitSet.add)
   }
 
@@ -46,7 +46,7 @@ class BloomFilter(setSize: Int, multiHashFuns: Seq[String => Seq[Int]]) {
     * @return false iff the argument DOES NOT belong to the set
     *         true result might be a false positive
     */
-  def contains(word: String): Boolean =
+  def contains(word: T): Boolean =
     normalizedHashes(word).forall(bitSet.contains)
 
   /**
@@ -54,7 +54,7 @@ class BloomFilter(setSize: Int, multiHashFuns: Seq[String => Seq[Int]]) {
     *
     * @param words Iterator of Strings to add.
     */
-  def addAll(words: Iterator[String]) {
+  def addAll(words: Iterator[T]) {
     words.foreach(add)
   }
 
@@ -76,16 +76,16 @@ object BloomFilter extends App {
   // from 16-byte array extract 4 integers into a list
   private def toInts(array: Array[Byte]) = {
     val buffer = ByteBuffer.wrap(array)
-    List(buffer.getInt, buffer.getInt, buffer.getInt, buffer.getInt)
+    Seq(buffer.getInt, buffer.getInt, buffer.getInt, buffer.getInt)
   }
 
 
   private val filterSize = 1024 * 1024 * 8
 
   // create a filter to use the supplied hashing functions
-  val filter = new BloomFilter(filterSize, Seq(
+  val filter = new BloomFilter[String](filterSize, Seq(
     (word: String) => toInts(md5(word)),
-    (word: String) => List(word.hashCode)
+    (word: String) => Seq(word.hashCode)
   ))
 
   private val wordlistURL = getClass.getResource("/wordlist.txt")
