@@ -22,7 +22,7 @@ public class Stairs123 {
     }
 
     static long countWaysMemo(final int n) {
-        final long[] memo = new long[n+3];
+        final long[] memo = new long[n + 3];
         memo[1] = 1;
         memo[2] = 2;
         memo[3] = 4;

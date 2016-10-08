@@ -21,7 +21,7 @@ public class Parens {
     }
 
     private static void addParens(char[] chars, List<String> result, int lft, int rgt, int position) {
-        System.out.println("lft = " + lft + "\trgt = " + rgt + "\t" + String.copyValueOf(chars,0,position));
+        System.out.println("lft = " + lft + "\trgt = " + rgt + "\t" + String.copyValueOf(chars, 0, position));
         if (lft == 0 && rgt == 0) {
             result.add(String.copyValueOf(chars));
         } else {

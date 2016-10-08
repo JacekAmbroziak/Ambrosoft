@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  * Created by jacek on 6/18/16.
  */
+
 public class NextInt {
     private static final Random rnd = new Random();
 

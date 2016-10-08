@@ -22,7 +22,7 @@ object Parens extends App {
   }
 
   def addPair(patterns: List[Char]): Seq[List[Char]] = {
-     Seq()
+    Seq()
   }
 
 }

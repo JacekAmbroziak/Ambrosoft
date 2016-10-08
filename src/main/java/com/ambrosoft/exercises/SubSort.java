@@ -40,7 +40,7 @@ public class SubSort {
         for (; i < j && a[j - 1] <= a[j]; --j) {
         }
 
-        // find smallest & biggest values in the middle part
+        // find smallest & biggest VALUES in the middle part
 
         int min = a[j];
         int max = a[i];

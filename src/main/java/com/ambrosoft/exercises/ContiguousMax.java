@@ -34,7 +34,7 @@ public class ContiguousMax {
 
     static int sumJRA(final int[] a) {
         // seq doesn't start with negative or end w/ negative
-        // except when all values (so far) have been negative
+        // except when all VALUES (so far) have been negative
         // then the seq is just a single biggest negative number
         // when the first positive is seen it replaces negative seq & starts new sequence
         // "positive balance"
@@ -93,9 +93,9 @@ public class ContiguousMax {
     // Gayle's
     static int getMaxSum(final int[] a) {
         int maxsum = 0, sum = 0;
-        for (int i : a) {
-            sum += i;
-            if (maxsum < sum) {
+        for (int val : a) {
+            sum += val;
+            if (sum > maxsum) {
                 maxsum = sum;
             } else if (sum < 0) {
                 sum = 0;

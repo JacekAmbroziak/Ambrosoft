@@ -13,7 +13,6 @@ public class PECS {
     static class BetterStack<E> {
         private final Stack<E> theStack = new Stack<>();
 
-
         void pushAll(Collection<? extends E> elements) {
             for (E e : elements) {
                 theStack.add(e);
@@ -25,9 +24,7 @@ public class PECS {
                 elements.add(theStack.pop());
             }
         }
-
     }
-
 
     public static void main(String[] args) {
         BetterStack<Number> numberStack = new BetterStack<>();
@@ -44,7 +41,5 @@ public class PECS {
         numberStack.popAll(numbers);
 
         System.out.println("done");
-
     }
-
 }
