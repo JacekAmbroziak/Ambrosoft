@@ -3,6 +3,7 @@ package com.ambrosoft.exercises;
 /**
  * Created by jacek on 9/5/16. Marina de Negru
  */
+
 public class NonOverlapping {
     static void printNonOverlapping(String input) {
         printNonOverlapping("", input, 0);

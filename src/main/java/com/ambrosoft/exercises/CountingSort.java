@@ -1,21 +1,12 @@
 package com.ambrosoft.exercises;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Created by jacek on 10/14/16.
  */
 
 public class CountingSort {
-    static int[] createRandomArray(int n, int bound) {
-        final int[] array = new int[n];
-        final Random random = new Random(System.nanoTime());
-        for (int i = n; --i >= 0; ) {
-            array[i] = random.nextInt(bound);
-        }
-        return array;
-    }
 
     static int[] countValues(int[] array, int bound) {
         final int[] counters = new int[bound];
@@ -33,7 +24,7 @@ public class CountingSort {
         final int bound = 5;
         final int length = 20;
 
-        final int[] array = createRandomArray(length, bound);
+        final int[] array = Utils.createRandomArray(length, bound);
         System.out.println(Arrays.toString(array));
 
         final int[] counters = countValues(array, bound);

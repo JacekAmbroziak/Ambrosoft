@@ -6,14 +6,14 @@ import java.util.Random;
 /**
  * Created by jacek on 10/14/16.
  */
-public class RadixSort {
+
+public final class RadixSort {
     static final int RADIX = 36;
     static final int CODELEN = 6;
 
-    static char[] randomReservationCode(final Random random, final int charCount) {
+    private static char[] randomReservationCode(final Random random, final int charCount) {
         final char[] code = new char[charCount];
         for (int i = charCount; --i >= 0; ) {
-//            code[i] = Character.toUpperCase(Character.forDigit(random.nextInt(RADIX), RADIX));
             code[i] = toCode(random.nextInt(RADIX));
         }
         return code;
@@ -28,18 +28,8 @@ public class RadixSort {
         return codes;
     }
 
-    static int[] countValues(int[] array, int bound) {
-        final int[] counters = new int[bound];
-        for (int i = array.length; --i >= 0; ) {
-            ++counters[array[i]];
-        }
-        // cumulative counts will provide 'to' indices for placement of values
-        for (int i = 1; i < bound; ++i) {
-            counters[i] += counters[i - 1];
-        }
-        return counters;
-    }
-
+    // using Character static methods would be more general but slower
+    // here the translation responsibility is confined to this file
     private static int codeValue(final char code) {
         return code < 'A' ? code - '0' : code - 'A' + 10;
     }
@@ -49,6 +39,7 @@ public class RadixSort {
     }
 
     static char[][] sortCodes(char[][] codes) {
+        // will perform counting sort, column by column, right to left
         final int[] counters = new int[RADIX];
         final int length = codes.length;
         char[][] sorted = new char[length][];
@@ -67,8 +58,8 @@ public class RadixSort {
                 final char[] code = codes[row];
                 sorted[--counters[codeValue(code[col])]] = code;
             }
-            // reset counters
             if (col > 0) {
+                // reset counters
                 Arrays.fill(counters, 0);
                 // swap source and target
                 final char[][] temp = codes;
@@ -82,14 +73,14 @@ public class RadixSort {
     }
 
     public static void main(String[] args) {
-        char[][] codes = randomCodes(20);
+        final char[][] codes = randomCodes(10);
         for (char[] chars : codes) {
             System.out.println(Arrays.toString(chars));
         }
 
-        codes = sortCodes(codes);
+        final char[][] sorted = sortCodes(codes);
         System.out.println("-----------------");
-        for (char[] chars : codes) {
+        for (char[] chars : sorted) {
             System.out.println(Arrays.toString(chars));
         }
     }
