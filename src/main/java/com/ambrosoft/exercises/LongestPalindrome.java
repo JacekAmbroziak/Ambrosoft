@@ -43,26 +43,31 @@ public class LongestPalindrome {
     static int longestPalindromeLength2(String input) {
         final char[] chars = input.toCharArray();
         final int length = chars.length;
+        // create a triangular array as 'memo' to store max lengths for smaller intervals
         final int[][] m = new int[length][];
-        // create a triangular array
         for (int i = 0; i < length; ++i) {
             final int[] row = new int[length - i];
             Arrays.fill(row, -1);  // -1 stands for unknown; fill entire row
             row[0] = 1;    // atomic, length 1 (delta 0), trivial palindromes at every char
             m[i] = row;
         }
+        // seeking solution for the whole length
         return longestPalindromeLength2(chars, 0, length - 1, m);
     }
 
     // delta is length - 1, so if start addresses first char of an interval, start+delta addresses the last
+    // we are asking for the length of a longest palindromic subsequence lurking somewhere in that segment
     private static int longestPalindromeLength2(char[] chars, int start, int delta, int[][] memo) {
         if (memo[start][delta] >= 0) { // subproblem already seen & solved
             return memo[start][delta];
         } else {
             final int result;
             if (delta == 1) {    // two chars
+                // in the segment is just 2 chars, figuring out max palindrome length is trivial
                 result = chars[start] == chars[start + 1] ? 2 : 0;
             } else {
+                // for longer segment we don't yet know what's inside (X)
+                // but if ends of segment are same char, than answer will be 2 + X
                 if (chars[start] == chars[start + delta]) {   // palindrome contribution
                     result = longestPalindromeLength2(chars, start + 1, delta - 2, memo) + 2;
                 } else {    // search

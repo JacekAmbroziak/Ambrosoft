@@ -162,6 +162,7 @@ public class Parenthesization {
                                 }
                             }
                             break;
+
                         case '-':
                             for (int lft : left) {
                                 for (int rgt : right) {
@@ -169,6 +170,7 @@ public class Parenthesization {
                                 }
                             }
                             break;
+
                         case '*':
                             for (int lft : left) {
                                 for (int rgt : right) {
@@ -176,12 +178,10 @@ public class Parenthesization {
                                 }
                             }
                             break;
+
                         default:
                             throw new Error();
-
                     }
-
-
                 } while ((nextOp = indexOfOperator(text, nextOp + 1, end)) > 0);
                 result = new int[list.size()];
                 for (int i = result.length; --i >= 0; ) {
