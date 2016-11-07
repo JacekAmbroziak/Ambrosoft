@@ -1,7 +1,6 @@
 package com.ambrosoft.exercises;
 
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Created by jacek on 10/16/16.
@@ -88,29 +87,6 @@ public class LCS {
         return sb.toString();
     }
 
-    static String randomString(final int length) {
-        final Random random = new Random();
-        final char[] letters = new char[length];
-        for (int i = length; --i >= 0; ) {
-            letters[i] = (char) ('A' + random.nextInt(26));
-        }
-        return new String(letters);
-    }
-
-    static String reverseString(final String input) {
-        if (input.length() < 2) {
-            return input;
-        } else {
-            final char[] chars = input.toCharArray();
-            for (int i = 0, j = chars.length - 1; i < j; ) {
-                final char temp = chars[i];
-                chars[i++] = chars[j];
-                chars[j--] = temp;
-            }
-            return new String(chars);
-        }
-    }
-
     static String longestPalindromicSubsequence(final String input) {
         // idea: LCS of input & reverse(input)
         final char[] xa = input.toCharArray();
@@ -175,8 +151,8 @@ public class LCS {
     }
 
     static void naiveVsFast(int length) {
-        String x = randomString(length);
-        String y = randomString(length);
+        String x = Utils.randomString(length);
+        String y = Utils.randomString(length);
         System.out.println("naive len = " + naiveLCS(x, y));
         System.out.println("lcs(x,y) = " + lcs(x, y));
     }
@@ -192,19 +168,19 @@ public class LCS {
 
         naiveVsFast(10);
 
-        String input1 = randomString(50);
-        String input2 = randomString(50);
+        String input1 = Utils.randomString(50);
+        String input2 = Utils.randomString(50);
 
         System.out.println("input1 = " + input1);
         System.out.println("input2 = " + input2);
         System.out.println("lcs(input1,input2) = " + lcs(input1, input2));
         System.out.println("lcs(input2,input1) = " + lcs(input2, input1));
-        final String lcs1 = lcs(input1, reverseString(input1));
+        final String lcs1 = lcs(input1, Utils.reverseString(input1));
         System.out.println("lcs(input1,reverseString(input1))\t\t\t = " + lcs1);
         System.out.println("longestPalindromicSubsequence(input1)\t\t = " + longestPalindromicSubsequence(input1));
         System.out.println("lcs1 = " + lcs1.length());
         for (int i = 0; i < 100; i++) {
-            testLCS(randomString(1000), randomString(1000));
+            testLCS(Utils.randomString(1000), Utils.randomString(1000));
         }
     }
 }

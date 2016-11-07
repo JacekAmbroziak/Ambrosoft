@@ -6,7 +6,7 @@ package com.ambrosoft.exercises;
 public class CountOfTwos {
     // count occurrences of digit 2 in decimal representations of numbers 0..n
 
-    // 2's occur in decimal representation when 2, 20, 200 are present in the number
+    // 2's occur in decimal representation when 2, 20, 200 are present in the node
 
     // brute force useful for testing
     static int bruteForce(int n) {

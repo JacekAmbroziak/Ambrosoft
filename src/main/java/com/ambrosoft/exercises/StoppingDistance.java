@@ -22,7 +22,7 @@ import java.util.Map;
         2, 1, …      stopping distance =
         3, 10, 5, 16 (4 steps)-> 7
 
-        Stopping distance of n = number of steps to 1
+        Stopping distance of n = node of steps to 1
                              */
 
 public class StoppingDistance {
@@ -85,7 +85,7 @@ public class StoppingDistance {
     /*
         if n is odd, it is of the form 2m + 1
         3(2m + 1) + 1 = 6m + 3 + 1 = 6m + 4 = 2(3m + 2)
-        so it is even, and so next number has to be 3m + 2
+        so it is even, and so next node has to be 3m + 2
 
         n = 2m + 1
         m = (n - 1)/2

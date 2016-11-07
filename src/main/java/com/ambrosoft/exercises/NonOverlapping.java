@@ -11,7 +11,7 @@ public class NonOverlapping {
 
     static void printNonOverlapping(final String prefix, final String input, int depth) {
         System.out.print("\ndepth = " + depth + '\t');
-//        System.out.println("number = " + number);
+//        System.out.println("node = " + node);
 //        System.out.println("prefix = " + prefix);
         System.out.println(prefix + '[' + input + ']');
         // for inputs of length >= 2, find all splits

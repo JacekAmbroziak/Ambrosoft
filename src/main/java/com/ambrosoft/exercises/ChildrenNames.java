@@ -1,6 +1,8 @@
 package com.ambrosoft.exercises;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Created by jacek on 10/28/16.
@@ -34,12 +36,12 @@ public class ChildrenNames {
         }
     }
 
-    static Collection<TreeSet<String>> makeSynsets(Map<String, String> synonyms) {
+    static Map<String, TreeSet<String>> makeSynsets(Map<String, String> synonyms) {
         final Map<String, TreeSet<String>> synsets = new HashMap<>();
         for (Map.Entry<String, String> entry : synonyms.entrySet()) {
             addSynset(synsets, entry.getKey(), entry.getValue());
         }
-        return synsets.values();
+        return synsets;
     }
 
     static Map<String, Integer> totals(Map<String, Integer> freq, Map<String, String> syn) {
@@ -51,9 +53,9 @@ public class ChildrenNames {
         // not exactly trivial to build synsets: UNION-FIND
         // a tricky example would involve a long loop of synonym "edges"
 
-        final Collection<TreeSet<String>> synsets = makeSynsets(syn);
+        final Map<String, TreeSet<String>> synsets = makeSynsets(syn);
 
-        for (TreeSet<String> names : synsets) {
+        for (TreeSet<String> names : synsets.values()) {
             int sum = 0;
             for (String name : names) {
                 final Integer count = freq.get(name);
@@ -62,6 +64,14 @@ public class ChildrenNames {
                 }
             }
             result.put(names.first(), sum);
+        }
+        // take care of names w/o synonyms
+        for (String name : freq.keySet()) {
+            if (synsets.containsKey(name)) {
+                // do nothing
+            } else {
+                result.put(name, freq.get(name));
+            }
         }
         return result;
     }

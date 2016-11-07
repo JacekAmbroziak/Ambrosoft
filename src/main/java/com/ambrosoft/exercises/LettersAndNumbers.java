@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class LettersAndNumbers {
     /*
         array with letters and numbers
-        find longest subarray with equal number of letters and numbers
+        find longest subarray with equal node of letters and numbers
 
         similar to palindrome, but where palindrome makes progress on recognizing identical chars
         this one progresses by seeing letter/digit or digit/letter at ends

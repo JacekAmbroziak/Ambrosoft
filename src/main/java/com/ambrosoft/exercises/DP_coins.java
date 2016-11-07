@@ -24,7 +24,7 @@ public class DP_coins {
 
     static int coins(final int target) {
         System.out.println("target = " + target);
-        // minimal number of coins to build a sum
+        // minimal node of coins to build a sum
         final int[] minCoinCount = new int[target + 1];
         // last coin added to complete the sum
         final int[] lastAddedCoin = new int[target + 1];

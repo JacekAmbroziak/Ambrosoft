@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
  */
 public class Kth357 {
     /*
-        k-th number divisible only by 3, 5, or 7
+        k-th node divisible only by 3, 5, or 7
 
         approach:
 
@@ -25,7 +25,7 @@ public class Kth357 {
 
         these are pure contributions of our factors; can be ordered; other numbers are in-between
 
-        every number is a multiplication of some walk down these 3 rows
+        every node is a multiplication of some walk down these 3 rows
             eg. 9 = 9,1,1
             15 = 3,5,1
             21 = 3,1,7
@@ -57,7 +57,7 @@ public class Kth357 {
 
         given (i, j, k), what is the next (i1, j1, k1)
 
-        alternative: for (i,j,k), what is the previous number?
+        alternative: for (i,j,k), what is the previous node?
             can't have all exponents incremented
 
         3D DP?
@@ -66,7 +66,7 @@ public class Kth357 {
 
         Hint from solution in Gayle's book:
 
-        next number will be
+        next node will be
             3 * some prev num, or
             5 * some prev num, or
             7 * some prev num

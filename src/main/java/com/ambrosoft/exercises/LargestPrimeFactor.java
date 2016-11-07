@@ -27,7 +27,7 @@ public class LargestPrimeFactor {
 
 
     static void factor(long number) {
-        System.out.println("number = " + number);
+        System.out.println("node = " + number);
         if (number % 2 == 0) {
             System.out.println("factor = " + 2);
             factor(number / 2);
@@ -64,7 +64,7 @@ public class LargestPrimeFactor {
                 }
             }
         }
-        System.out.println("number = " + number);
+        System.out.println("node = " + number);
     }
 
     private static long factorOut(long number, long prime) {
@@ -88,6 +88,6 @@ public class LargestPrimeFactor {
             }
             prime += 6;
         }
-        System.out.println("number = " + number);
+        System.out.println("node = " + number);
     }
 }

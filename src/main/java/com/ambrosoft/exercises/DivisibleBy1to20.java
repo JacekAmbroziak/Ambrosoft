@@ -6,7 +6,7 @@ package com.ambrosoft.exercises;
 public class DivisibleBy1to20 {
 
     /*
-    Find smallest number divisible by [1,20]
+    Find smallest node divisible by [1,20]
     Must be a product of all primes < 20
     plus a few small primes to support divisibility by eg. 18,16
      */

@@ -6,14 +6,14 @@ package com.ambrosoft.exercises
 object MinSwapsIntoPairsScala extends App {
 
   /**
-    * Minimum number of swaps to rearrange to adjacent pairs
-    * http://www.geeksforgeeks.org/minimum-number-of-swaps-required-for-arranging-pairs-adjacent-to-each-other/
+    * Minimum node of swaps to rearrange to adjacent pairs
+    * http://www.geeksforgeeks.org/minimum-node-of-swaps-required-for-arranging-pairs-adjacent-to-each-other/
     *
     * solution by a user
     *
     * @param arr      Array of integers
     * @param pairings Map of pairs
-    * @return Tuple of the minimum number of swaps and the rearrangements with minimal
+    * @return Tuple of the minimum node of swaps and the rearrangements with minimal
     *         swaps such that each rearrangement is a list of adjacent pairs
     */
   def minSwapsForAdjacentPairs(arr: Array[Int], pairings: Map[Int, Int]): (Int, Seq[Seq[Int]]) = {

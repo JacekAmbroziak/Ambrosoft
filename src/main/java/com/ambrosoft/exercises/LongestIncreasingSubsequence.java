@@ -196,7 +196,7 @@ public class LongestIncreasingSubsequence {
             Arrays.sort(a);
             int value = random.nextInt(a[length - 1] + 1);
 
-            // find max element < number
+            // find max element < node
 
             int index1 = -1;
             for (int j = a.length; --j >= 0; ) {

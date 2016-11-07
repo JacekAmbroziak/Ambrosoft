@@ -73,7 +73,7 @@ public class Parenthesization {
             return new Expr[]{new Constant(tokens[first])};
         } else {
             final ArrayList<Expr> list = new ArrayList<>();
-            // odd number of tokens
+            // odd node of tokens
             // every operator has a chance of becoming a root
             for (int i = first + 1; i < last; i += 2) {
                 final char op = tokens[i].charAt(0);

@@ -29,7 +29,7 @@ public class CountingSundays {
     }
 
     public static void main(String[] args) {
-        // enumerate all firsts of the month giving day number
+        // enumerate all firsts of the month giving day node
         // check which of these, modulo 7, are Sundays
 
         int year = 1900;

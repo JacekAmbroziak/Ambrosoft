@@ -9,7 +9,7 @@ import java.util.Random;
  * http://www.geeksforgeeks.org/minimum-number-of-swaps-required-for-arranging-pairs-adjacent-to-each-other
  * <p>
  * Numbers 1 through 2n: n *pairs* but initially not paired
- * "sort" them in minimal number of swaps so that pairs sit together
+ * "sort" them in minimal node of swaps so that pairs sit together
  * a bit similar to sorting
  * <p>
  * if permutations are nodes in a graph and edges correspond to swaps
@@ -24,7 +24,7 @@ import java.util.Random;
  * --- need to find the 2nd long-distance pair (has to exist!)
  * - repeat recursively
  * <p>
- * similarity to finding minimal number of character exchanges to transform strings via DP
+ * similarity to finding minimal node of character exchanges to transform strings via DP
  * <p>
  * <p>
  * <p>
@@ -37,7 +37,7 @@ class MinSwapsIntoPairs {
         return n % 2 == 0 ? n - 1 : n + 1;
     }
 
-    // return number of swaps
+    // return node of swaps
     static int orderIntoPairs(final int a[]) {
         final int[] indexOf = new int[a.length + 1];
         for (int i = a.length; --i >= 0; ) {
