@@ -119,7 +119,6 @@ public class RequiresProvides {
         final SimpleDigraph graph = new SimpleDigraph(registry.nodeCount());
         for (NodeFile file : files) {
             final int fileNo = registry.nodeNumber(file);
-
             for (Module module : file.requires) {
                 graph.addEdge(registry.nodeNumber(module), fileNo);
             }

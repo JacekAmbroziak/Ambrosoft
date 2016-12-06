@@ -37,7 +37,7 @@ public class ThreeWayTrie<Value> {
                     gt = path(key, value, d);
                 }
             } else {    // equal
-                if (d + 1 == key.length()) {    // at end: key matches path
+                if (d + 1 == key.length()) {    // at last: key matches path
                     final Object previous = this.value;
                     this.value = value;
                     return previous;
@@ -123,13 +123,13 @@ public class ThreeWayTrie<Value> {
     }
 
     Value get(final String key) {
-//        final Node node = get(root, key, 0, key.charAt(0));
+//        final ListNode node = get(root, key, 0, key.charAt(0));
         final Node node = getIter(root, key);
         return node != null ? (Value) node.value : null;
     }
 
     Value delete(final String key) {
-//        final Node n = get(root, key, 0, key.charAt(0));
+//        final ListNode n = get(root, key, 0, key.charAt(0));
         final Node n = getIter(root, key);
         if (n != null) {
             final Value value = (Value) n.value;
@@ -156,7 +156,7 @@ public class ThreeWayTrie<Value> {
             if (prefix.isEmpty()) {
                 return keys();
             } else if (root != null) {
-//                final Node node = get(root, prefix, 0, prefix.charAt(0));
+//                final ListNode node = get(root, prefix, 0, prefix.charAt(0));
                 final Node node = getIter(root, prefix);
                 if (node != null && node.eq != null) {
                     final ArrayList<String> keyList = new ArrayList<>();
@@ -197,7 +197,7 @@ public class ThreeWayTrie<Value> {
     }
 
 /*
-    private Node get(final Node node, final String key, final int index, final char dthChar) {
+    private ListNode get(final ListNode node, final String key, final int index, final char dthChar) {
         if (node != null) {
             if (dthChar < node.character) {
                 return get(node.lt, key, index, dthChar);

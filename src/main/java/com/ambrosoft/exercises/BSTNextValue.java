@@ -90,7 +90,7 @@ public class BSTNextValue {
     static BSTNode successor(BSTNode node) {
         // 2 cases when there is no successor
         // a) node is rightmost, ancestral path always along right edges
-        // b) tree is unbalanced (or one element), we start at root, and it has no right child
+        // b) tree is unbalanced (or one element), we first at root, and it has no right child
         // otherwise successor is first ancestor reached from left child   WRONG!
         // right subtree of node contains nodes bigger than node but smaller than parent of node
         // so if the subtree exists, return its minimal element

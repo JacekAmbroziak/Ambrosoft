@@ -8,8 +8,8 @@ import java.util.Arrays;
 public class SubarrayGivenSum {
 
 
-    // grow a sum from 'start' until end of array, or found, or too big
-    // when too big, advance start...
+    // grow a sum from 'first' until last of array, or found, or too big
+    // when too big, advance first...
     static void find(int[] a, final int val) {
         System.out.println("\nFIND");
         final int len = a.length;
@@ -17,7 +17,7 @@ public class SubarrayGivenSum {
         for (int i = start; i < len; ++i) {
             sum += a[i];
             if (sum == val) {
-                System.out.println(String.format("start=%d, end=%d", start, i + 1));
+                System.out.println(String.format("first=%d, last=%d", start, i + 1));
                 return;
             } else if (sum > val) {
                 sum -= a[i--];

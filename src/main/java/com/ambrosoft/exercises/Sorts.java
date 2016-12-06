@@ -11,7 +11,7 @@ public class Sorts {
     static void selection(int[] a) {
         final int last = a.length - 1;
         for (int i = 0; i < last; ++i) {
-            // find smallest from i to end
+            // find smallest from i to last
             int indexOfSmallest = i;
             for (int j = i; j < a.length; ++j) {
                 if (a[j] < a[indexOfSmallest]) {

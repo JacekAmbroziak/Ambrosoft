@@ -103,7 +103,7 @@ public class Inversions {
                         aux[k++] = a[j];    // take from right
                         splitInversions += mid - i; // the count of remaining elements from left array
                         if (++j == hi) {    // right exhausted
-                            // copy remainder of left to end of merged
+                            // copy remainder of left to last of merged
                             System.arraycopy(a, i, aux, k, mid - i);
                             // copy merged back to a
                             System.arraycopy(aux, lo, a, lo, len);

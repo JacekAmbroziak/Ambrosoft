@@ -80,7 +80,7 @@ public class FullCycle {
     }
 
     static int[] generateFullCycle(final int len) {
-        // generate random order of nodes to visit, except that we need 0 at the end to complete loop
+        // generate random order of nodes to visit, except that we need 0 at the last to complete loop
         // the other indices need to be shuffled
         final int[] visitOrder = new int[len];
         // resisting temptation to micro-optimize

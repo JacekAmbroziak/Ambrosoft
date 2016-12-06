@@ -37,7 +37,7 @@ public class Permutations {
         if (remainingCharsLen == 0) {
             System.out.println(accum);
         } else {
-            // every character has the chance to start/extend  permutation accumulator
+            // every character has the chance to first/extend  permutation accumulator
             for (int i = 0; i < remainingCharsLen; i++) {
                 perm1(accum + remainingChars.charAt(i), remainingChars.substring(0, i) + remainingChars.substring(i + 1), remainingCharsLen - 1);
             }

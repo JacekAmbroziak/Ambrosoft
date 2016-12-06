@@ -82,7 +82,7 @@ public class LongestIncreasingSubsequence {
             // search back for the longest seq that can be extended with val
             // some seq will always be extended: the longest, a non-empty seq, or empty
 
-            // start with border cases
+            // first with border cases
 
             if (value > a[indexOfLast[maxlen]]) {
                 predecessor[i] = indexOfLast[maxlen];
@@ -123,7 +123,7 @@ public class LongestIncreasingSubsequence {
             // search back for the longest seq that can be extended with val
             // some seq will always be extended: the longest, a non-empty seq, or empty
 
-            // start with border cases
+            // first with border cases
 
             if (value > a[indexOfLast[maxlen]]) {
                 predecessor[i] = indexOfLast[maxlen];

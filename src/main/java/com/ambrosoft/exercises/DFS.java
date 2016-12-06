@@ -1,14 +1,12 @@
 package com.ambrosoft.exercises;
 
-import java.util.Random;
-
 /**
  * Created by jacek on 11/4/16.
  */
 
 public class DFS {
 
-    // could be "state" like DISCOVERED, FINISHED
+    // could be "state" like UNDISCOVERED, DISCOVERED, FINISHED
     enum NodeColor {
         WHITE, GRAY, BLACK
     }
@@ -25,9 +23,9 @@ public class DFS {
         }
 
         int time = 0;
-        for (int i = 0; i < nodeCount; i++) {
-            if (color[i] == NodeColor.WHITE) {
-                time = dfsVisit(digraph, color, disTime, finTime, pred, i, time);
+        for (int node = 0; node < nodeCount; node++) {
+            if (color[node] == NodeColor.WHITE) {
+                time = dfsVisit(digraph, color, disTime, finTime, pred, node, time);
             }
         }
         System.out.println("time = " + time);
@@ -47,17 +45,8 @@ public class DFS {
         return time;
     }
 
-    static SimpleDigraph createRandomGraph(int V, int E) {
-        final SimpleDigraph digraph = new SimpleDigraph(V);
-        final Random random = new Random(System.currentTimeMillis());
-        for (int i = E; --i >= 0; ) {
-            digraph.addEdge(random.nextInt(V), random.nextInt(V));
-        }
-        return digraph;
-    }
-
     public static void main(String[] args) {
-        SimpleDigraph rdag = createRandomGraph(100, 100);
+        SimpleDigraph rdag = SimpleDigraph.createRandomGraph(100, 100);
         System.out.println(rdag);
 
         dfs(rdag);

@@ -27,6 +27,6 @@ public class Collatz {
             }
         }
         System.out.println("max = " + max);
-        System.out.println("start = " + start);
+        System.out.println("first = " + start);
     }
 }

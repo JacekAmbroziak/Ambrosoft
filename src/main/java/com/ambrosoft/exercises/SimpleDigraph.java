@@ -1,6 +1,7 @@
 package com.ambrosoft.exercises;
 
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by jacek on 11/2/16.
@@ -59,6 +60,15 @@ public class SimpleDigraph {
             }
         }
         return sb.toString();
+    }
+
+    static SimpleDigraph createRandomGraph(int V, int E) {
+        final SimpleDigraph digraph = new SimpleDigraph(V);
+        final Random random = new Random(System.currentTimeMillis());
+        for (int i = E; --i >= 0; ) {
+            digraph.addEdge(random.nextInt(V), random.nextInt(V));
+        }
+        return digraph;
     }
 
     public static void main(String[] args) {

@@ -60,10 +60,10 @@ public class LettersAndNumbers {
         }
     }
 
-    // delta is length - 1, so if start addresses first char of an interval, start+delta addresses the last
+    // delta is length - 1, so if first addresses first char of an interval, first+delta addresses the last
     // always called with odd delta
     private static int longestBalanced(char[] chars, int start, int delta, int[][] memo) {
-//        System.out.println("start = " + start + "\tdelta = " + delta + " last " + (start + delta));
+//        System.out.println("first = " + first + "\tdelta = " + delta + " last " + (first + delta));
         if (memo[start][delta] >= 0) { // subproblem already seen & solved
             return memo[start][delta];
         } else {

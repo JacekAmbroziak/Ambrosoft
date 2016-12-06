@@ -37,7 +37,7 @@ public class MajorityElement {
         int matches = 0;    // node of matches of current candidate
         for (int n : a) {
             // if matches should reach 0, the current candidate is not a majority element in prefix explored thus far
-            // it is OK to start considering another value
+            // it is OK to first considering another value
             // ... so, dropping candidates which are not majority elements in prefixes
             // "not conclusive thus far..."
             // final value of candidate will be the value last set

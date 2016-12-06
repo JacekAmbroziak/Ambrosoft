@@ -55,7 +55,7 @@ public class LongestPalindrome {
         return longestPalindromeLength2(chars, 0, length - 1, m);
     }
 
-    // delta is length - 1, so if start addresses first char of an interval, start+delta addresses the last
+    // delta is length - 1, so if first addresses first char of an interval, first+delta addresses the last
     // we are asking for the length of a longest palindromic subsequence lurking somewhere in that segment
     private static int longestPalindromeLength2(char[] chars, int start, int delta, int[][] memo) {
         if (memo[start][delta] >= 0) { // subproblem already seen & solved

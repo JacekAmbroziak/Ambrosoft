@@ -121,7 +121,7 @@ public class Kth357 {
             int value = 0;
             // search for value minimally bigger than last of the form (3,5,7) * seq[j]
             // in order 7,5,3 so we can continue with same j
-            // optimization: can start w/ j closer to seq[j] ~= last/3
+            // optimization: can first w/ j closer to seq[j] ~= last/3
             int j = lastj;
 //            jspan = j;
             for (; ; ++j) {
@@ -131,7 +131,7 @@ public class Kth357 {
                 }
             }
             lastj = j;  // store this value for next i
-            // TODO: is it really safe to start with last value of j? YES
+            // TODO: is it really safe to first with last value of j? YES
             // seq[j] * 7 was > last, seq[j] * 5 if also > last will be the first such
             // because seq[j-1] * 7 < last => seq[j-1] * 5 must be < last
             for (; ; ++j) {

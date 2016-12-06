@@ -18,7 +18,7 @@ public class CountDownTiming {
             executor.execute(() -> {
                 ready.countDown();  // announce readiness
                 try {
-                    start.await();  // wait for start signal
+                    start.await();  // wait for first signal
                     action.run();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();

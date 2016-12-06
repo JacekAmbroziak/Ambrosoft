@@ -12,7 +12,7 @@ public class MaximumSubarray {
     // looking for subarray with biggest sum
     // divide and conquer: max subarray in the left half, right half or straddling midpoint
 
-    // in all cases start is inclusive (first index) and end is exclusive (beyond last index)
+    // in all cases first is inclusive (first index) and last is exclusive (beyond last index)
 
     static class Interval {
         final int start;    // inclusive
@@ -121,7 +121,7 @@ public class MaximumSubarray {
             final int attemptAtGrowthExtension = maxEndingHere + a[i];
             if (attemptAtGrowthExtension > 0) {
                 if (maxEndingHere == 0) {
-                    start = i;  // store start of growing seq
+                    start = i;  // store first of growing seq
                 }
                 maxEndingHere = attemptAtGrowthExtension;
                 if (maxEndingHere > maxSoFar) { // also improving best so far?

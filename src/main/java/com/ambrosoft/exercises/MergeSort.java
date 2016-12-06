@@ -51,7 +51,7 @@ public class MergeSort {
                     } else {
                         aux[k++] = a[j];    // take from right
                         if (++j == hi) {    // right exhausted
-                            // copy remainder of left to end of merged
+                            // copy remainder of left to last of merged
                             System.arraycopy(a, i, aux, k, mid - i);
                             // copy merged back to a
                             System.arraycopy(aux, lo, a, lo, len);

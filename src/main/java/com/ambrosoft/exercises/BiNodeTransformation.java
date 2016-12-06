@@ -86,7 +86,7 @@ public class BiNodeTransformation {
 
         root.node1 = root.node2 = null;
 
-        // should be possible to implement "left link" to return rightmost end w/o scanning for it
+        // should be possible to implement "left link" to return rightmost last w/o scanning for it
         BiNode node = left != null ? link(last(left), root) : root;
         if (right != null) {
             link(node, right);

@@ -37,7 +37,7 @@ public class ContiguousMax {
     }
 
     static int sumJRA(final int[] a) {
-        // seq doesn't start with negative or end w/ negative
+        // seq doesn't first with negative or last w/ negative
         // except when all VALUES (so far) have been negative
         // then the seq is just a single biggest negative node
         // when the first positive is seen it replaces negative seq & starts new sequence
