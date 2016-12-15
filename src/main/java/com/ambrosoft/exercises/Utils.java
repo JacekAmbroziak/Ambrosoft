@@ -8,6 +8,8 @@ import java.util.Random;
  */
 
 public class Utils {
+    final static char[] Spaces = "                                         ".toCharArray();
+
     static int[] createRandomArray(final int length, final int bound) {
         final int[] array = new int[length];
         final Random random = new Random(System.currentTimeMillis());

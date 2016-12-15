@@ -38,27 +38,15 @@ public class BSTNextValue {
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
-            if (lft != null) {
-                sb.append('(').append(lft.toString()).append(')');
-            }
-            sb.append('<').append(value).append('>');
-            if (rgt != null) {
-                sb.append('(').append(rgt.toString()).append(')');
-            }
+            printTree(sb, this, 0);
             return sb.toString();
         }
 
-        void stringRep(final StringBuilder sb) {
-            if (lft != null) {
-                sb.append('(');
-                lft.stringRep(sb);
-                sb.append(')');
-            }
-            sb.append('<').append(value).append('>');
-            if (rgt != null) {
-                sb.append('(');
-                rgt.stringRep(sb);
-                sb.append(')');
+        private static void printTree(StringBuilder sb, BSTNode node, int level) {
+            if (node != null) {
+                sb.append(Utils.Spaces, 0, 2 * level).append(node.value).append('\n');
+                printTree(sb, node.lft, level + 1);
+                printTree(sb, node.rgt, level + 1);
             }
         }
     }
