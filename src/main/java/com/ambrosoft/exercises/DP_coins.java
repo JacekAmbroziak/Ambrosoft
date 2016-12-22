@@ -20,13 +20,13 @@ import java.util.Arrays;
 
 public class DP_coins {
 
-    static int[] VALUES = {1, 5, 10, 25, 30};
+    static int[] COINS = {1, 5, 10, 25, 30};    // sorted
 
     static int coins(final int target) {
         System.out.println("target = " + target);
-        // minimal node of coins to build a sum
-        final int[] minCoinCount = new int[target + 1];
-        // last coin added to complete the sum
+        // minimal number of coins to build a sum
+        final int[] minCoinCount = new int[target + 1]; // the "DP table" of subproblems
+        // last coin added to complete the sum (data needed for solution reconstruction)
         final int[] lastAddedCoin = new int[target + 1];
         Arrays.fill(minCoinCount, Integer.MAX_VALUE);
 
@@ -34,22 +34,26 @@ public class DP_coins {
         minCoinCount[0] = 0;
 
         // consider all smaller sums in sequence
-        for (int sum = 1; sum <= target; sum++) {
-            for (final int value : VALUES) {
-                if (value <= sum && minCoinCount[sum - value] + 1 < minCoinCount[sum]) {
-                    minCoinCount[sum] = minCoinCount[sum - value] + 1;
-                    lastAddedCoin[sum] = value;
+        for (int amount = 1; amount <= target; amount++) {
+            for (final int coin : COINS) {    // try all admissible coins
+                if (coin <= amount) {   // not bigger than amount==problem size
+                    // key recurrence: problem reduction by coin value, problem cost increase by 1 coin
+                    if (minCoinCount[amount - coin] + 1 < minCoinCount[amount]) {
+                        minCoinCount[amount] = minCoinCount[amount - coin] + 1; // found better option
+                        lastAddedCoin[amount] = coin;   // note which coin leads to current minimum
+                    }
+                } else {
+                    break;
                 }
             }
         }
         System.out.println("min = " + minCoinCount[target]);
 
-        for (int i = target; i > 0; ) {
-
-            final int val = lastAddedCoin[i];
+        // show the coins
+        for (int amount = target; amount > 0; ) {
+            final int val = lastAddedCoin[amount];
             System.out.println("added " + val);
-            i -= val;
-
+            amount -= val;
         }
         return minCoinCount[target];
     }

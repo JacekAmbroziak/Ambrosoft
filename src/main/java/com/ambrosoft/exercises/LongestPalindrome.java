@@ -39,7 +39,6 @@ public class LongestPalindrome {
 
     // alternative recursion: characterize subproblems not with [i,...,j] but (i, length)
 
-
     static int longestPalindromeLength2(String input) {
         final char[] chars = input.toCharArray();
         final int length = chars.length;

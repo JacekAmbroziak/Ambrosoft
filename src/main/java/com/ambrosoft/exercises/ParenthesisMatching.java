@@ -2,10 +2,10 @@ package com.ambrosoft.exercises;
 
 /**
  * Created by jacek on 11/4/16.
- *
+ * <p>
  * Uber problem, 15 min time
  */
-public class DelimiterMatching {
+public class ParenthesisMatching {
     // matching delimiters
     static String openDelim = "([{";
     static String closeDelim = ")]}";
