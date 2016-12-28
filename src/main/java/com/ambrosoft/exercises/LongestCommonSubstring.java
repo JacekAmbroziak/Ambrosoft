@@ -14,11 +14,15 @@ public class LongestCommonSubstring {
 
         length of common substring ending here?
 
-        Using hints from GeeksForGeeks
+        Imagine (draw examples) maximal common substrings identified and highlighted
+            they end at some indexes (where they achieve max length)
+
+        Using hints from GeeksForGeeks:
+            DP tabularize lengths of common substrings ending at all indexes i, j
      */
 
     private static int lcs(char[] a, char[] b) {
-        return lcs(a, a.length, b, b.length);
+        return lcsDP(a, a.length, b, b.length);
     }
 
     static int lcs(char[] a, int alen, char[] b, int blen) {
@@ -45,6 +49,31 @@ public class LongestCommonSubstring {
         }
     }
 
+    static int lcsDP(char[] a, int alen, char[] b, int blen) {
+        int maxLen = 0; // track the maximum length as DP table is populated
+        int endInA = 0;
+        final int[][] lenAtPrefix = new int[alen + 1][blen + 1];
+        // populate the table
+        // i,j play the role of (exclusive) 'end'
+        for (int i = 1; i <= alen; i++) {
+            for (int j = 1; j <= blen; j++) {
+                if (a[i - 1] == b[j - 1]) {
+                    lenAtPrefix[i][j] = lenAtPrefix[i - 1][j - 1] + 1;
+                    if (lenAtPrefix[i][j] > maxLen) {
+                        maxLen = lenAtPrefix[i][j];
+                        endInA = i;
+                    }
+                }
+                // if not equal, common length drops to 0 (so no change to initialized table)
+            }
+        }
+        if (endInA > 0) {
+            String substring = String.valueOf(a, endInA - maxLen, maxLen);
+            System.out.println("substring = " + substring);
+        }
+        return maxLen;
+    }
+
     static int lcs(String a, String b) {
         return lcs(a.toCharArray(), b.toCharArray());
     }
@@ -56,6 +85,6 @@ public class LongestCommonSubstring {
 
     public static void main(String[] args) {
 //        test("photograph", "tomography");
-        test("jacek1xab", "jacek2xabcccc");
+        test("jaek1xab", "jaek2xabcccc");
     }
 }

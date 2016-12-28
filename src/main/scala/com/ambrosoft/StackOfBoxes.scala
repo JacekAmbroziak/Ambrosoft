@@ -16,14 +16,12 @@ import scala.util.Random
   */
 object StackOfBoxes extends App {
 
-
   case class Box(w: Int, d: Int, h: Int) extends Ordered[Box] {
     val volume = w * d * h
 
     override def compare(that: Box): Int = volume - that.volume
 
     def strictlySmallerThan(that: Box) = w < that.w && d < that.d && h < that.h
-
   }
 
   /**
@@ -31,7 +29,6 @@ object StackOfBoxes extends App {
     * return all stackable sublists
     */
   def sequences(blocks: List[Box]): Seq[List[Box]] = {
-
     blocks match {
       case biggest :: tail => {
         val subseq = sequences(tail)
@@ -41,7 +38,6 @@ object StackOfBoxes extends App {
 
       case Nil => Seq(List())
     }
-
   }
 
   def combine(base: Box, stack: List[Box]): List[List[Box]] = {
@@ -87,5 +83,4 @@ object StackOfBoxes extends App {
 
   println(boxes)
   println(compute(boxes))
-
 }

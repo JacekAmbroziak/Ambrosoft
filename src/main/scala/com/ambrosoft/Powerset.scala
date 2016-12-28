@@ -4,8 +4,6 @@ package com.ambrosoft
   * Created by jacek on 7/6/16.
   */
 object Powerset extends App {
-
-
   println(powerset(List(1, 2, 3)))
 
   val subsets = powerset(List(1, 2, 3, 4))
@@ -23,6 +21,4 @@ object Powerset extends App {
       }
       case Nil => List(List())
     }
-
-
 }

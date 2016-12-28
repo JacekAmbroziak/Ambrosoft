@@ -10,8 +10,9 @@ import java.util.List;
 public class Parens {
 
     public static void main(String[] args) {
-        List<String> result = generate(3);
+        List<String> result = generate(4);
         System.out.println("result = " + result);
+        System.out.println("result = " + result.size());
     }
 
     static List<String> generate(final int n) {
@@ -20,19 +21,42 @@ public class Parens {
         return result;
     }
 
-    private static void addParens(char[] chars, List<String> result, int lft, int rgt, int position) {
-        System.out.println("lft = " + lft + "\trgt = " + rgt + "\t" + String.copyValueOf(chars, 0, position));
-        if (lft == 0 && rgt == 0) {
+    // chars: reusable char array where (s and )s are placed at position which grows with recursion level
+    // lft, rgt: numbers of remaining parenthesis
+    // the general shape of the recursive tree (as shown with addParensAny) allows generation of all possibilities
+    // if clauses constrain the generation to only () matching forms
+    // the general, unconstrained, generation reaches every possibility, only once
+    // the 'if's ensure that only n ('s will be written, and n )'s when there's something open
+    // the question asked each time is: can we extend the sequence with ( or )?
+    // the answer is, yes we can extend with ( if we still have them
+    // and with ) if more ( than ) written so far
+
+    private static void addParens(char[] chars, List<String> result, int lftRem, int rgtRem, int index) {
+        if (index == chars.length) {
             result.add(String.copyValueOf(chars));
         } else {
-            if (lft > 0) {
-                chars[position] = '(';
-                addParens(chars, result, lft - 1, rgt, position + 1);
+            if (lftRem > 0) {
+                chars[index] = '(';
+                addParens(chars, result, lftRem - 1, rgtRem, index + 1);
             }
-            System.out.println("middle");
-            if (rgt > lft) {
-                chars[position] = ')';
-                addParens(chars, result, lft, rgt - 1, position + 1);
+            if (rgtRem > lftRem) {
+                chars[index] = ')';
+                addParens(chars, result, lftRem, rgtRem - 1, index + 1);
+            }
+        }
+    }
+
+    private static void addParensAny(char[] chars, List<String> result, int lft, int rgt, int index) {
+        if (index == chars.length) {
+            result.add(String.copyValueOf(chars));
+        } else {
+            if (true) {
+                chars[index] = '(';
+                addParensAny(chars, result, lft - 1, rgt, index + 1);
+            }
+            if (true) {
+                chars[index] = ')';
+                addParensAny(chars, result, lft, rgt - 1, index + 1);
             }
         }
     }

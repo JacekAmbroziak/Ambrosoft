@@ -3,7 +3,7 @@ package com.ambrosoft.exercises;
 /**
  * Created by jacek on 12/5/16.
  */
-public class OneAway {
+public class OneEditDistanceAway {
     /*
         insert, remove, replace
         checking for edit distance at most 1

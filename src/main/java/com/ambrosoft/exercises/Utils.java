@@ -2,6 +2,7 @@ package com.ambrosoft.exercises;
 
 import java.util.LinkedHashSet;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by jacek on 10/18/16.
@@ -12,7 +13,7 @@ public class Utils {
 
     static int[] createRandomArray(final int length, final int bound) {
         final int[] array = new int[length];
-        final Random random = new Random(System.currentTimeMillis());
+        final Random random = ThreadLocalRandom.current();
         for (int i = length; --i >= 0; ) {
             array[i] = random.nextInt(bound);
         }

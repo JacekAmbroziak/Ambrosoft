@@ -8,18 +8,13 @@ import scala.collection.mutable
 
 
 object Robot extends App {
-
   val board = new Board(5, 5, (x, y) => x < y)
-
   val sol = board.getProblem(0, 0).solutions
-
   println(sol)
-
 }
 
-
-class Board(rows: Int, columns: Int, obstacles: (Int, Int) => Boolean) {
-
+// a Board with dimension and obstacle predicate
+class Board(rows: Int, columns: Int, isObstacle: (Int, Int) => Boolean) {
   val problems = mutable.Map[(Int, Int), Problem]()
 
   def getProblem(xy: (Int, Int)) = {
@@ -34,7 +29,6 @@ class Board(rows: Int, columns: Int, obstacles: (Int, Int) => Boolean) {
   }
 
   case class Problem(x: Int, y: Int) {
-
     lazy val solutions: Seq[List[(Int, Int)]] =
       if (x == columns - 1 && y == rows - 1)
         Seq(List())
@@ -46,10 +40,10 @@ class Board(rows: Int, columns: Int, obstacles: (Int, Int) => Boolean) {
       problem.solutions.map(xy :: _)
 
     def moveDown(): Option[(Int, Int)] =
-      Option(y + 1).filter(_ < rows).filterNot(obstacles(x, _)).map((x, _))
+      Option(y + 1).filter(_ < rows).filterNot(isObstacle(x, _)).map((x, _))
 
     def moveRight(): Option[(Int, Int)] =
-      Option(x + 1).filter(_ < columns).filterNot(obstacles(_, y)).map((_, y))
+      Option(x + 1).filter(_ < columns).filterNot(isObstacle(_, y)).map((_, y))
   }
 
 }
