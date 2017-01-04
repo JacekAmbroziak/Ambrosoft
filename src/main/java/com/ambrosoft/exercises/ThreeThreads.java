@@ -42,28 +42,21 @@ public class ThreeThreads {
             int i = 20;
             while (--i >= 0) {
                 try {
-
                     System.out.println(message);
 
                     synchronized (this) {
                         notify();
                     }
 
-
                     final Worker prev = squad[prevIdx];
                     synchronized (prev) {
                         prev.wait();
                     }
-
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
             System.out.println("done");
         }
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.ambrosoft.exercises;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
@@ -7,77 +8,76 @@ import java.util.PriorityQueue;
  */
 public class Histogram {
 
-    static class RectStart implements Comparable<RectStart> {
-        private final int index;
-        private final int value;
+    static final class RectStart implements Comparable<RectStart> {
+        private final int startIndex;
+        private final int height;
 
-        RectStart(int index, int value) {
-            this.index = index;
-            this.value = value;
+        RectStart(int startIndex, int height) {
+            this.startIndex = startIndex;
+            this.height = height;
         }
 
-        int areaUpTo(int end) {
-            int area = (end - index) * value;
-//            System.out.println("area = " + area);
-            return area;
+        int getHeight() {
+            return height;
         }
 
-        RectStart withValue(int value) {
-            return new RectStart(index, value);
+        int areaUpTo(final int end) {
+            return (end - startIndex) * height;
+        }
+
+        RectStart withHeight(int height) {
+            return new RectStart(startIndex, height);
         }
 
         @Override
         public String toString() {
-            return "(" + index + ", " + value + ')';
+            return String.format("(%d, %d)", startIndex, height);
         }
-
 
         @Override
         public int compareTo(RectStart o) {
-            return o.value - value;
+            return o.height - height;
         }
     }
 
 
-    static int findBiggestRectangle(final int[] hist) {
-        int adds = 0;
-        int accum = 0;
+    static int findLargestRectangle(final int[] hist) {
+        int largest = 0;
+        // collection of continuing rectangles (continuously) ordered by diminishing heights
         final PriorityQueue<RectStart> queue = new PriorityQueue<>();
-        for (int i = 0, lastVal = -1; i < hist.length; i++) {
-            final int value = hist[i];
-            // value falling completes some continuations (zero completes all)
-            while (!queue.isEmpty() && value < queue.peek().value) {
+        for (int i = 0, lastHeight = -1; i < hist.length; i++) {
+            final int height = hist[i];
+            // height falling completes some continuations (zero completes all)
+            while (!queue.isEmpty() && height < queue.peek().getHeight()) {
                 final RectStart rectStart = queue.poll();
-                accum = Math.max(accum, rectStart.areaUpTo(i));
-                queue.add(rectStart.withValue(value));
-                ++adds;
+                largest = Math.max(largest, rectStart.areaUpTo(i));
+                queue.add(rectStart.withHeight(height));
             }
 
-            if (value > lastVal) {
-                queue.add(new RectStart(i, value));
-                ++adds;
+            if (height > lastHeight) {
+                queue.add(new RectStart(i, height));
             }
 
-            lastVal = value;
+            lastHeight = height;
         }
 
         while (queue.size() > 0) {
-            accum = Math.max(accum, queue.poll().areaUpTo(hist.length));
+            largest = Math.max(largest, queue.poll().areaUpTo(hist.length));
         }
-        System.out.println("adds = " + adds);
-        return accum;
+        return largest;
     }
 
     static void test(int[] a) {
-//        System.out.println(Arrays.toString(a));
-        System.out.println("findBiggestRectangle(a) = " + findBiggestRectangle(a));
+        System.out.println(Arrays.toString(a));
+        System.out.println("findBiggestRectangle(a) = " + findLargestRectangle(a));
     }
 
     public static void main(String[] args) {
         test(new int[]{5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5});
 //        test(new int[]{1, 2, 2, 3, 2, 1});
 //        test(new int[]{1, 3, 2, 1, 2});
-//        test(new int[]{1, 5, 3, 1});
+        test(new int[]{1, 5, 3, 1});
+        test(new int[]{4, 3, 2, 2});
 //        test(new int[]{1, 3, 3, 5, 1});
 //        test(new int[]{6, 2, 5, 4, 5, 1, 6});
 //        test(new int[]{1, 2, 3, 4, 5});

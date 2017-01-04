@@ -10,8 +10,8 @@ import java.util.concurrent.Semaphore;
 public class FirstSecondThird {
 
     static class Foo {
-        Semaphore sem1 = new Semaphore(1);
-        Semaphore sem2 = new Semaphore(1);
+        final Semaphore sem1 = new Semaphore(1);
+        final Semaphore sem2 = new Semaphore(1);
 
         Foo() {
             try {
@@ -51,7 +51,9 @@ public class FirstSecondThird {
 
     public static void main(String[] args) {
         final Foo foo = new Foo();
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        final ExecutorService executorService = Executors.newFixedThreadPool(3);
+
         executorService.submit(new Runnable() {
             @Override
             public void run() {
@@ -73,8 +75,6 @@ public class FirstSecondThird {
             }
         });
 
-
         executorService.shutdown();
     }
-
 }

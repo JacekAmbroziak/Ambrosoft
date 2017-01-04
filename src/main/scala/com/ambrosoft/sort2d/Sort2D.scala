@@ -5,12 +5,24 @@ import scala.collection.mutable.ListBuffer
 import scala.util.Random
 import scala.util.Sorting.quickSort
 
+/*
+  Sorting a 2D Int matrix so that each row and each column is sorted
+
+  The approach:
+  1) sort all values
+  2) come up with a sequence of cell coords starting with upper left, diagonals
+  3) assign sorted values to these coords in order
+
+  In this functional approach coords are materialized
+ */
+
+
 object Sort2D extends App {
   val N = 7
   val M = 4
-  val matrix = Array.ofDim[Int](N, M)
+  //  val matrix = Array.ofDim[Int](N, M)
 
-  show(matrix)
+  //  show(matrix)
 
   def show(m: Array[Array[Int]]) = {
     m foreach { row =>
@@ -28,17 +40,18 @@ object Sort2D extends App {
   val r = randomMatrix
 
   show(r)
-  show(sortRows(r))
+  //  show(sortRows(r))
 
   println(isSorted(r))
-  println(isSorted(matrix))
+  //  println(isSorted(matrix))
 
   val diags = diagonals(N, M)
-  val ordered = enumerate(r)
+  //  val ordered = enumerate(r)
 
+  println(sortAll(r).toList)
+  println(diags)
 
-  //  (diags zip ordered).foreach { case ((x, y), v) => r(x)(y) = v }
-  (diags zip sortAll(r)).foreach { case ((x, y), v) => r(x)(y) = v }
+  (diags zip sortAll(r)).foreach { case ((row, col), v) => r(row)(col) = v }
 
   show(r)
   println(isSorted(r))
@@ -49,35 +62,33 @@ object Sort2D extends App {
     m
   }
 
-
   def isSorted(m: Array[Array[Int]]): Boolean = {
-    val nn = m.length
-    val mm = m(0).length
+    val nRows = m.length
+    val nCols = m(0).length
 
-    (0 until nn).forall { x =>
-      (0 until mm).forall { y =>
-        (x + 1 == nn || m(x)(y) <= m(x + 1)(y)) && (y + 1 == mm || m(x)(y) <= m(x)(y + 1))
+    (0 until nRows).forall { row =>
+      (0 until nCols).forall { col =>
+        (row + 1 == nRows || m(row)(col) <= m(row + 1)(col)) && (col + 1 == nCols || m(row)(col) <= m(row)(col + 1))
       }
     }
   }
 
   def diagonals(n: Int, m: Int): List[(Int, Int)] = {
-    val topRow = (0 until n).toList.map((_, 0))
-    val rightColumn = (1 until m).toList.map((n - 1, _))
+    val leftColumn = (0 until n).toList.map((_, 0))
+    val bottomRow = (1 until m).toList.map((n - 1, _)) // w/o right corner
 
-    println(topRow ++ rightColumn)
+    // leftColumn ++ bottomRow: starting points for diagonals
 
-    val points = (topRow ++ rightColumn).flatMap(start => diagonal(start._1, start._2))
-    println(points)
-    println(points.length)
-    points
+    println(leftColumn ++ bottomRow)
+
+    (leftColumn ++ bottomRow).flatMap(start => diagonal(start._1, start._2))
   }
 
-  def diagonal(i: Int, j: Int): List[(Int, Int)] = {
-    if (i == -1 || j == M)
+  def diagonal(row: Int, col: Int): List[(Int, Int)] = {
+    if (row == -1 || col == M)
       Nil
     else
-      (i, j) :: diagonal(i - 1, j + 1)
+      (row, col) :: diagonal(row - 1, col + 1)
   }
 
   case class ArrayDatum(a: Array[Int], index: Int) extends Ordered[ArrayDatum] {
@@ -110,10 +121,9 @@ object Sort2D extends App {
     buf.toList
   }
 
-  def sortAll(m: Array[Array[Int]]) = {
+  def sortAll(m: Array[Array[Int]]): Array[Int] = {
     sortRows(m).reduceLeft((a1: Array[Int], a2: Array[Int]) => (a1 ++ a2).sorted)
   }
-
 }
 
 
