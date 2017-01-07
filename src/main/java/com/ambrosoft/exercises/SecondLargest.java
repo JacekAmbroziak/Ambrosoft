@@ -49,16 +49,18 @@ public class SecondLargest {
         }
     }
 
-    private static int largest(int[] a, int lo, int hi) {
-        final int len = hi - lo;
+    private static int largest(int[] a, int start, int end) {
+        final int len = end - start;
         switch (len) {
             case 1:
-                return a[lo];
+                return a[start];
+
             case 2:
-                return Math.max(a[lo], a[lo + 1]);
+                return Math.max(a[start], a[start + 1]);
+
             default:
-                final int mid = lo + len / 2;
-                return Math.max(largest(a, lo, mid), largest(a, mid, hi));
+                final int mid = start + len / 2;
+                return Math.max(largest(a, start, mid), largest(a, mid, end));
         }
     }
 }

@@ -6,7 +6,6 @@ import java.util.Arrays;
  * Created by jacek on 1/2/17.
  */
 public class Sort2DArray {
-
     static int[][] random2D(int nRows, int nCols, int bound) {
         final int[][] result = new int[nRows][];
         for (int row = 0; row < nRows; row++) {
@@ -50,7 +49,6 @@ public class Sort2DArray {
         }
     }
 
-
     public static void main(String[] args) {
         int[][] a = random2D(7, 4, 30);
         print2DArray(a);
@@ -58,5 +56,4 @@ public class Sort2DArray {
         System.out.println();
         print2DArray(a);
     }
-
 }
