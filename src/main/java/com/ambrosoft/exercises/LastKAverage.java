@@ -1,6 +1,6 @@
 package com.ambrosoft.exercises;
 
-import scala.actors.threadpool.Arrays;
+import java.util.Arrays;
 
 /**
  * Created by jacek on 12/16/16.
