@@ -65,11 +65,11 @@ public class MajorityElement {
     }
 
     static boolean validate(int[] a, int candidate) {
-        final int enough = a.length / 2 + 1;
+        final int majority = a.length / 2 + 1;
         int count = 0;
         for (int i = a.length; --i >= 0; ) {
             if (a[i] == candidate) {
-                if (++count == enough) {
+                if (++count == majority) {
                     return true;
                 }
             }
