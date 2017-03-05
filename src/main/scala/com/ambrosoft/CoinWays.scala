@@ -25,7 +25,7 @@ object CoinWays extends App {
   }
 
   private def count(denominations: List[Int], amount: Int): Int = {
-    //        println(s"$amount\t\t$denominations")
+            println(s"$amount\t\t$denominations")
     if (amount == 0)
       1 // successful recursion bottom: count this change
     else
