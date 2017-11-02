@@ -65,7 +65,6 @@ final class IntegerArray implements Iterable<Integer> {
             @Override
             public boolean hasNext() {
                 return index < end;
-
             }
 
             @Override
