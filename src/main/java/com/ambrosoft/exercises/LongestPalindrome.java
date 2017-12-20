@@ -42,7 +42,7 @@ public class LongestPalindrome {
     static int longestPalindromeLength2(String input) {
         final char[] chars = input.toCharArray();
         final int length = chars.length;
-        // create a triangular array as 'memo' to store max lengths for smaller intervals
+        // create a triangular array as 'MEMO' to store max lengths for smaller intervals
         final int[][] m = new int[length][];
         for (int i = 0; i < length; ++i) {
             final int[] row = new int[length - i];

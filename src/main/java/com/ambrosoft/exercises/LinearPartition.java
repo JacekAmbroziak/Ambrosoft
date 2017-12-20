@@ -85,7 +85,7 @@ public class LinearPartition {
         System.out.println("result = " + result);
         System.out.println("sum(a,0,a.length) = " + sum(a, 0, length));
 //        System.out.println(Arrays.toString(indexes));
-        System.out.println("nonNegativeElements(memo) = " + nonNegativeElements(memo));
+        System.out.println("nonNegativeElements(MEMO) = " + nonNegativeElements(memo));
         printPartition(a, a.length, k, indexes);
     }
 

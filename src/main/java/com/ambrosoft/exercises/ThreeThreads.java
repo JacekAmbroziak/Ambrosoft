@@ -2,17 +2,18 @@ package com.ambrosoft.exercises;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by jacek on 6/16/16.
  */
 public class ThreeThreads {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         final int nThreads = 3;
 
-        ExecutorService executor = Executors.newFixedThreadPool(nThreads);
-        Worker[] workers = new Worker[nThreads];
+        final ExecutorService executor = Executors.newFixedThreadPool(nThreads);
+        final Worker[] workers = new Worker[nThreads];
 
         workers[0] = new Worker("zero", workers, 0);
         workers[1] = new Worker("one", workers, 1);
@@ -23,6 +24,7 @@ public class ThreeThreads {
         }
 
         executor.shutdown();
+        executor.awaitTermination(10, TimeUnit.SECONDS);
     }
 
     static class Worker implements Runnable {

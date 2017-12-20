@@ -12,7 +12,7 @@ public class LongestNoRepeatingChars {
 
     /*
 
-        d&c: longest in left half, or right half or crossing: n log n
+        d&c: longest in left half, or right half or crossing: nCols log nCols
 
         possibly DP
 

@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class LettersAndNumbers {
     /*
         array with letters and numbers
-        find longest subarray with equal node of letters and numbers
+        find longest subarray with equal number of letters and numbers
 
         similar to palindrome, but where palindrome makes progress on recognizing identical chars
         this one progresses by seeing letter/digit or digit/letter at ends
@@ -32,21 +32,21 @@ public class LettersAndNumbers {
     static int longestBalanced(String input) {
         final char[] chars = input.toCharArray();
         final int length = chars.length;
-        final int[][] m = new int[length][];
+        final int[][] memo = new int[length][];
         // create a triangular array
         for (int i = 0; i < length; ++i) {
             final int[] row = new int[length - i];
             Arrays.fill(row, -1);  // -1 stands for unknown; fill entire row
             row[0] = 0;    // atomic, length 1 (delta 0), trivial non-balanced-seqs at every char
-            m[i] = row;
+            memo[i] = row;
         }
         if (length % 2 == 1) {  // longest can't be odd
             // so -- either left (skip last) or right (skip first)
-            final int lft = longestBalanced(chars, 0, length - 2, m);
-            final int rgt = longestBalanced(chars, 1, length - 2, m);
+            final int lft = longestBalanced(chars, 0, length - 2, memo);
+            final int rgt = longestBalanced(chars, 1, length - 2, memo);
             return Math.max(lft, rgt);
-        } else {
-            return longestBalanced(chars, 0, length - 1, m);
+        } else {    // consider all chars
+            return longestBalanced(chars, 0, length - 1, memo);
         }
     }
 

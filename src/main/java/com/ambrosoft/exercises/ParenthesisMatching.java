@@ -37,9 +37,47 @@ public class ParenthesisMatching {
         }
     }
 
+    static boolean balanced2(final String input) {
+        final int len = input.length();
+        if (len < 2) {
+            return true;
+        } else {
+            final int[] stack = new int[len];
+            int sp = 0;
+            for (int i = 0; i < len; i++) {
+                final char c = input.charAt(i);
+                switch (c) {
+                    case '(':
+                        stack[sp++] = ')';
+                        break;
+
+                    case '[':
+                        stack[sp++] = ']';
+                        break;
+
+                    case '{':
+                        stack[sp++] = '}';
+                        break;
+
+                    case ')':
+                    case ']':
+                    case '}':
+                        if (sp > 0 && stack[sp - 1] == c) { // has to have matching on top
+                            --sp;   // cancel out, pop
+                        } else {
+                            return false;
+                        }
+                        break;
+                }
+            }
+            return sp == 0; // no delims or pairs cancelled out
+        }
+    }
+
     static void test(String input) {
         System.out.println("input = " + input);
-        System.out.println("balanced(input) = " + balanced(input));
+        System.out.println("balanced1(input) = " + balanced(input));
+        System.out.println("balanced2(input) = " + balanced2(input));
     }
 
     public static void main(String[] args) {

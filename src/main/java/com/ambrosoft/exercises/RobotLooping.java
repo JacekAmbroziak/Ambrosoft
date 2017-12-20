@@ -22,7 +22,7 @@ public class RobotLooping {
             this.y = y;
         }
 
-        Direction left() {
+        Direction turnLeft() {
             switch (this) {
                 case RIGHT:
                     return UP;
@@ -37,7 +37,7 @@ public class RobotLooping {
             }
         }
 
-        Direction right() {
+        Direction turnRight() {
             switch (this) {
                 case RIGHT:
                     return DOWN;
@@ -75,7 +75,7 @@ public class RobotLooping {
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof Point) {
-                Point p = (Point) obj;
+                final Point p = (Point) obj;
                 return x == p.x && y == p.y;
             }
             return false;
@@ -107,11 +107,11 @@ public class RobotLooping {
                     break;
 
                 case 'L':
-                    dir = dir.left();
+                    dir = dir.turnLeft();
                     break;
 
                 case 'R':
-                    dir = dir.right();
+                    dir = dir.turnRight();
                     break;
 
                 default:
@@ -120,7 +120,6 @@ public class RobotLooping {
         }
         return false;
     }
-
 
     static void test(String route) {
         System.out.println("route = " + route + '\t' + isLoop(route));

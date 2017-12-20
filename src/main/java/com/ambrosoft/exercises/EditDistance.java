@@ -46,7 +46,7 @@ public class EditDistance {
     }
 
     public static void main(String[] args) {
-        int res = editDistance("Xabc", "Xabc");
+        int res = editDistance("Jacek", "Marzena");
         System.out.println("res = " + res);
     }
 }
