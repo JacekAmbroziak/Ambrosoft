@@ -31,13 +31,16 @@ public class MajorityElement {
     // Gayle
     // pure magic...
     // it kind of eliminates non-candidates
+    // there can be no majority element
+    // thus we have 2 passes: 1) try to find something, 2) validate
+    // last value returned from getCandidate will be majority or arbitrary
 
-    static int getCandidate(int[] a) {
+    private static int getCandidate(final int[] a) {
         int candidate = 0;
-        int matches = 0;    // node of matches of current candidate
-        for (int n : a) {
+        int advantage = 0;    // number of matches of current candidate
+        for (final int n : a) {
             // if matches should reach 0, the current candidate is not a majority element in prefix explored thus far
-            // it is OK to first considering another value
+            // it is OK to start considering another value
             // ... so, dropping candidates which are not majority elements in prefixes
             // "not conclusive thus far..."
             // final value of candidate will be the value last set
@@ -46,25 +49,28 @@ public class MajorityElement {
             // example: 3, 2, 5, 9, 5, 9, 5, 5, 5
             // one can reason that if 5 is majority here, then there is no permutation that would hide this fact
             // from the simple mechanism of "current candidate & it's counter"
-            // eg. when all 5's are at the beginning they will elevate the counter high enough that future mismatches will not hurt it
+            // eg. when all 5's are at the beginning they will elevate the counter high enough that following mismatches will not destroy it
             // counter dropping to 0 for any prefix only means: "no majority so far"
             // if majority element exists, it will have to be the majority in the suffix
             // prefix:suffix reasoning works ok
             // one can consider prefix, suffix, and prefix+suffix as independent arrays
             // where the division is wherever counter drops to 0
-            if (matches == 0) {
+            // easiest to understand when thinking about eg. tennis player's advantage (rather than "match" or "counter")
+            // matches increase advantage, and mismatches lower it
+            // advantage at 0 allows to forget the past completely as in games -- winning depends on future games
+            if (advantage == 0) {
                 candidate = n;
-            }
-            if (n == candidate) {
-                ++matches;
+                advantage = 1;
+            } else if (n == candidate) {
+                ++advantage;
             } else {
-                --matches;
+                --advantage;
             }
         }
         return candidate;
     }
 
-    static boolean validate(int[] a, int candidate) {
+    private static boolean validate(final int[] a, final int candidate) {
         final int majority = a.length / 2 + 1;
         int count = 0;
         for (int i = a.length; --i >= 0; ) {
@@ -77,9 +83,20 @@ public class MajorityElement {
         return false;
     }
 
+    private static boolean validate2(final int[] a, final int candidate) {
+        for (int i = a.length, majority = i / 2 + 1; --i >= 0; ) {
+            if (a[i] == candidate) {
+                if (--majority == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     static int findMajority(int[] a) {
         final int candidate = getCandidate(a);
-        return validate(a, candidate) ? candidate : -1;
+        return validate2(a, candidate) ? candidate : -1;
     }
 
     static void test(int[] a) {

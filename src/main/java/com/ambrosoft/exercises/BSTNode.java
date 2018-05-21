@@ -35,6 +35,14 @@ final class BSTNode {
         return sb.toString();
     }
 
+    static BSTNode populateFromArray(final int[] a) {
+        final BSTNode root = new BSTNode(a[0]);
+        for (int i = 1; i < a.length; ++i) {
+            BSTNode.insert(root, a[i]);
+        }
+        return root;
+    }
+
     private static void printTree(StringBuilder sb, BSTNode node, int level) {
         if (node != null) {
             sb.append(Utils.Spaces, 0, 2 * level).append(node.value).append(" =").append(node.count).append('\n');

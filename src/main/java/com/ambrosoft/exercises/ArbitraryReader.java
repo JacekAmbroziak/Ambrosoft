@@ -4,7 +4,17 @@ import java.io.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by jacek on 1/19/17.
+ * Created by jacek on 1/19/17
+ * <p>
+ * From Google interview the previous day
+ * BufferedReader is given, reads whole blocks
+ * We want ArbitraryReader to provide more precision (as a decorator over BufferedReader)
+ * The lessons from this problem:
+ * 1) careful design of ARs state: temp buffer, start, remaining, isEmpty
+ * 2) great interplay between 2 private helper functions: fillBuffer and copyFromBuffer
+ *   As the readN function may need a sequence of fillBuffer, copyFromBuffer, it is best to design it and express it
+ *   in these high level terms rather than working directly with low level state
+ * 3) consider all the cases: underlying closed, reading small amounts, large amounts, gluing together 2 reads
  */
 public class ArbitraryReader {
     private final int BUFSIZE = 4096;
@@ -115,21 +125,21 @@ public class ArbitraryReader {
         }
     }
 
-    int readN(byte[] buffer, int n) throws IOException {
-        int copied = copyFromBuffer(buffer, n, 0);
-        if (copied == n) {
-            return copied;
+    int readN(final byte[] buffer, final int n) throws IOException {
+        final int copied1 = copyFromBuffer(buffer, n, 0);
+        if (copied1 == n) {
+            return copied1;
         } else if (isEmpty) {
-            return copied;
+            return copied1;
         } else {
-            int toRead = n - copied;
-            int count = copied;
+            int toRead = n - copied1;
+            int total = copied1;
             while (toRead > 0 && fillBuffer()) {
-                copied = copyFromBuffer(buffer, toRead, count);
-                toRead -= copied;
-                count += copied;
+                final int copied2 = copyFromBuffer(buffer, toRead, total);
+                toRead -= copied2;
+                total += copied2;
             }
-            return count;
+            return total;
         }
     }
 

@@ -125,25 +125,20 @@ public class PermutationsNoDups {
     static void permGayle(final String input) {
         final HashMap<Character, Integer> counts = new HashMap<>();
         for (final Character character : input.toCharArray()) {
-            final Integer count = counts.get(character);
-            if (count != null) {
-                counts.put(character, count + 1);
-            } else {
-                counts.put(character, 1);
-            }
+            counts.merge(character, 1, (a, b) -> a + b);
         }
-        permGayle("", counts, input.length());
+        permGayleAux("", counts, input.length());
     }
 
-    private static void permGayle(final String prefix, final HashMap<Character, Integer> counts, final int rem) {
-        if (rem == 0) {
+    private static void permGayleAux(final String prefix, final HashMap<Character, Integer> counts, final int remaining) {
+        if (remaining == 0) {
             System.out.println(prefix);
         } else {
             for (final Character character : counts.keySet()) {
                 final Integer count = counts.get(character);
                 if (count > 0) {
                     counts.put(character, count - 1);
-                    permGayle(prefix + character, counts, rem - 1);
+                    permGayleAux(prefix + character, counts, remaining - 1);
                     counts.put(character, count);   // restore
                 }
             }

@@ -30,7 +30,7 @@ public class Utils {
     }
 
     static int[] createRandomArrayNoDups(final int length, final int limit) {
-        final Random random = new Random(System.currentTimeMillis());
+        final Random random = ThreadLocalRandom.current();
         final LinkedHashSet<Integer> set = new LinkedHashSet<>();
         do {
             set.add(random.nextInt() % limit);
@@ -45,7 +45,7 @@ public class Utils {
     }
 
     static void shuffle(final int[] array) {
-        final Random rand = new Random(System.currentTimeMillis());
+        final Random rand = ThreadLocalRandom.current();
         for (int i = array.length; --i > 0; ) {
             final int index = rand.nextInt(i + 1);  // i+1 exclusive, so i inclusive
             // swap last in interval 0..i with randomly selected one
@@ -62,7 +62,7 @@ public class Utils {
     }
 
     static String randomString(final int length) {
-        final Random random = new Random();
+        final Random random = ThreadLocalRandom.current();
         final char[] letters = new char[length];
         for (int i = length; --i >= 0; ) {
             letters[i] = (char) ('A' + random.nextInt(26));

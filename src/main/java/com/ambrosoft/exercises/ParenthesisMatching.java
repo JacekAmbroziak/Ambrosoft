@@ -42,27 +42,27 @@ public class ParenthesisMatching {
         if (len < 2) {
             return true;
         } else {
-            final int[] stack = new int[len];
+            final int[] expectedClose = new int[len];
             int sp = 0;
             for (int i = 0; i < len; i++) {
                 final char c = input.charAt(i);
                 switch (c) {
                     case '(':
-                        stack[sp++] = ')';
+                        expectedClose[sp++] = ')';
                         break;
 
                     case '[':
-                        stack[sp++] = ']';
+                        expectedClose[sp++] = ']';
                         break;
 
                     case '{':
-                        stack[sp++] = '}';
+                        expectedClose[sp++] = '}';
                         break;
 
                     case ')':
                     case ']':
                     case '}':
-                        if (sp > 0 && stack[sp - 1] == c) { // has to have matching on top
+                        if (sp > 0 && expectedClose[sp - 1] == c) { // has to have matching on top
                             --sp;   // cancel out, pop
                         } else {
                             return false;

@@ -12,6 +12,7 @@ public class TwoSum {
         int i = 0, j = sorted.length - 1;
         while (i < j) {
             final int sum = sorted[i] + sorted[j];
+            System.out.println(String.format("i=%d,\tj=%d\t->\tsum=%d", i, j, sum));
             if (sum < val) {
                 ++i;
             } else if (sum > val) {
@@ -32,7 +33,7 @@ public class TwoSum {
 
     public static void main(String[] args) {
         int[] a = Utils.createRandomArray(50);
-        Utils.limitArray(a, 30);
+        Utils.limitArray(a, 40);
         Arrays.sort(a);
         test(a, 20);
     }

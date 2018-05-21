@@ -63,7 +63,7 @@ public class FindInTree {
     // Implementing Fisher–Yates shuffle
     static void shuffleArray(final Node[] array) {
         final Random rnd = ThreadLocalRandom.current();
-        for (int i = array.length; --i >= 0; ) {
+        for (int i = array.length; --i > 0; ) {
             final int index = rnd.nextInt(i + 1);
             final Node node = array[index];
             array[index] = array[i];

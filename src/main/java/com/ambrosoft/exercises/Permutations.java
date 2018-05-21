@@ -27,19 +27,21 @@ public class Permutations {
         return null;
     }
 
-
     // print n! permutation of the characters of the string s (in order)
-    public static void perm1(String s) {
-        perm1("", s, s.length());
+    static void perm1(final String s) {
+        perm1Aux("", s, s.length());
     }
 
-    private static void perm1(String accum, String remainingChars, int remainingCharsLen) {
-        if (remainingCharsLen == 0) {
+    private static void perm1Aux(final String accum, final String remChars, final int remCharsLen) {
+        if (remCharsLen == 0) {
             System.out.println(accum);
         } else {
-            // every character has the chance to first/extend  permutation accumulator
-            for (int i = 0; i < remainingCharsLen; i++) {
-                perm1(accum + remainingChars.charAt(i), remainingChars.substring(0, i) + remainingChars.substring(i + 1), remainingCharsLen - 1);
+            // every character has the chance to first/extend permutation accumulator
+            // we create a tree of calls (think of each call as a node with children!)
+            for (int i = 0; i < remCharsLen; i++) {
+                perm1Aux(accum + remChars.charAt(i),   // use the char
+                        remChars.substring(0, i) + remChars.substring(i + 1),   // remaining without the used one
+                        remCharsLen - 1);
             }
         }
     }
@@ -49,12 +51,14 @@ public class Permutations {
         perm2(s.toCharArray(), s.length());
     }
 
+    // clarifies all code when this is extracted to a simple aux function
     private static void swap(char[] a, int i, int j) {
         final char temp = a[i];
         a[i] = a[j];
         a[j] = temp;
     }
 
+    // again it is very helpful to think of the call tree as a tree
     static void perm2(final char[] a, final int n) {
         if (n == 1) {
             System.out.println(a);
@@ -67,11 +71,9 @@ public class Permutations {
         }
     }
 
-
     public static void main(String[] args) {
-        perm2("ABC");
+        perm2("ABCC");
         System.out.println("-------");
-        perm1("ABC");
+        perm1("ABCC");
     }
-
 }

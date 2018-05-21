@@ -1,7 +1,7 @@
 package com.ambrosoft.exercises;
 
 import java.util.Arrays;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by jacek on 10/10/16.
@@ -80,7 +80,7 @@ class MinSwapsIntoPairs {
 
 
     static void shuffle(final int[] array) {
-        final Random rand = new Random(System.currentTimeMillis());
+        final ThreadLocalRandom rand = ThreadLocalRandom.current();
         for (int i = array.length; --i > 0; ) {
             final int index = rand.nextInt(i + 1);
             final int temp = array[index];
@@ -122,6 +122,7 @@ class MinSwapsIntoPairs {
 //            int[] example = generateExample(5);
             int[] example = {14, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
+            shuffle(example);
 
             System.out.println(Arrays.toString(example));
 

@@ -9,12 +9,14 @@ public class StackMin {
     private StackNode top;
 
     static class StackNode {
-        int datum;
-        StackNode next;
-        int min;    // minimum value from here to bottom (data str. augmentation)
+        final int datum;
+        final int min;    // minimum value from here to bottom (data structure augmentation)
+        final StackNode next;
 
-        StackNode(int datum) {
+        StackNode(int datum, StackNode next, int min) {
             this.datum = datum;
+            this.min = min;
+            this.next = next;
         }
     }
 
@@ -53,16 +55,9 @@ public class StackMin {
     }
 
     void push(final int value) {
-        final StackNode el = new StackNode(value);
-
-        if (top != null) {
-            el.min = Math.min(value, top.min);
-            el.next = top;
-        } else {
-            el.min = value; // only value we know
-        }
-
-        top = el;
+        top = top != null ?
+                new StackNode(value, top, Math.min(value, top.min)) :   // new top will remember the current min
+                new StackNode(value, null, value);  // only value we know is min by def
     }
 
     public static void main(String[] args) {
