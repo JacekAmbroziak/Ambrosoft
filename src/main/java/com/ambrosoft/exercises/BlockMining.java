@@ -6,7 +6,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created on 5/21/18
@@ -31,10 +41,12 @@ public class BlockMining {
     static class Solver implements Callable<Result> {
         private final int serial;
         private final byte[] data;
+        private final AtomicLong counter;
 
-        Solver(final int serial, final byte[] data) {
+        Solver(final int serial, final byte[] data, final AtomicLong counter) {
             this.serial = serial;
             this.data = Arrays.copyOf(data, data.length + 8);
+            this.counter = counter;
         }
 
         @Override
@@ -57,20 +69,22 @@ public class BlockMining {
                 data[datalen - 7] = (byte) ((longNonce >>> 48) & 0xFF);
                 data[datalen - 8] = (byte) ((longNonce >>> 56) & 0xFF);
 
-                final byte[] result = sha256.digest(data);
+                final byte[] hash = sha256.digest(data);
                 ++counter;
-                if (result[0] == 0 && result[1] == 0 && result[2] == 0 && (result[3] & 0xFF) <= 0x0F) {
-                    System.out.println(serial + " found " + toHex(result, 32));
+                if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0 && (hash[3] & 0xFF) <= 0x1F) {
+                    System.out.println(serial + " found " + toHex(hash, 32));
                     System.out.println("serial = " + serial + "\t" + longNonce);
+                    this.counter.addAndGet(counter);
                     return new Result(longNonce);
                 }
             }
             System.out.println("interrupted serial = " + serial + "\tcounter = " + counter);
+            this.counter.addAndGet(counter);
             return null;
         }
     }
 
-    static void solve(final Executor executor, final List<Callable<Result>> solvers) throws InterruptedException {
+    private static void solve(final Executor executor, final List<Callable<Result>> solvers) throws InterruptedException {
         final CompletionService<Result> ecs = new ExecutorCompletionService<>(executor);
         final int n = solvers.size();
         final Future[] futures = new Future[n];
@@ -90,7 +104,7 @@ public class BlockMining {
                 }
             }
         } finally {
-            System.out.println("cancelling others");
+            System.out.println("cancelling futures");
             for (Future f : futures) {
                 f.cancel(true);
             }
@@ -100,7 +114,6 @@ public class BlockMining {
             use(result);
         }
     }
-
 
     private static String toHex(final byte[] bytes, final int count) {
         final char[] chars = new char[count << 1];
@@ -116,21 +129,24 @@ public class BlockMining {
         System.out.println("result = " + result);
     }
 
-
     public static void main(String[] args) throws InterruptedException {
         final ExecutorService executorService = Executors.newFixedThreadPool(N_THREADS);
+        final AtomicLong counter = new AtomicLong();
 
+        // generate random data
         final byte[] data = new byte[120];
-        new Random().nextBytes(data);
+        ThreadLocalRandom.current().nextBytes(data);
 
         final ArrayList<Callable<Result>> solvers = new ArrayList<>(N_THREADS);
         for (int i = N_THREADS; --i >= 0; ) {
-            solvers.add(new Solver(i, data));
+            solvers.add(new Solver(i, data, counter));
         }
 
         solve(executorService, solvers);
 
         executorService.shutdownNow();
         executorService.awaitTermination(5, TimeUnit.SECONDS);
+
+        System.out.println("number of hashes = " + counter);
     }
 }
