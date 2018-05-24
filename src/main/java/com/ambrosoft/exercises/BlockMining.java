@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
@@ -15,7 +14,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -142,10 +140,18 @@ public class BlockMining {
             solvers.add(new Solver(i, data, counter));
         }
 
-        solve(executorService, solvers);
+//        solve(executorService, solvers);
+
+        try {
+            // a good example of the rule to "know your library"
+            // invokeAny does exactly what is needed here (and uses CompletionService internally)
+            Result result = executorService.invokeAny(solvers);
+            use(result);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         executorService.shutdown();
-
         System.out.println("number of hashes = " + counter);
     }
 }
