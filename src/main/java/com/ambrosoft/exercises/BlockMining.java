@@ -144,8 +144,7 @@ public class BlockMining {
 
         solve(executorService, solvers);
 
-        executorService.shutdownNow();
-        executorService.awaitTermination(5, TimeUnit.SECONDS);
+        executorService.shutdown();
 
         System.out.println("number of hashes = " + counter);
     }
